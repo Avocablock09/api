@@ -7,4 +7,7 @@ use Illuminate\Http\Request;
 class homeController extends Controller
 {
     //
+    function main(){
+        return view('inrex');
+    }
 }
