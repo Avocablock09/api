@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +20,11 @@ Route::get('/', function () {
 });
 
 Route::resource('perjalanan', PerjalananController::class);
+
+Route::get('/user/{id_user}', function ($id) {
+    return new UserResource(User::findOrFail($id));
+});
+ 
+Route::get('/users', function () {
+    return UserResource::collection(User::all());
+});
