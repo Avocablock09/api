@@ -240,8 +240,9 @@ sup {
 
 a {
   color: #64a19d;
-  text-decoration: underline;
+  text-decoration: none;
 }
+
 a:hover {
   color: #50817e;
 }
