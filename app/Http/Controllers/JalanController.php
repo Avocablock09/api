@@ -6,6 +6,8 @@ use App\Models\jalan;
 use App\Http\Requests\StorejalanRequest;
 use App\Http\Requests\UpdatejalanRequest;
 
+use function PHPUnit\Framework\isNull;
+
 class JalanController extends Controller
 {
     /**
@@ -16,6 +18,12 @@ class JalanController extends Controller
     public function index()
     {
         //
+        $current = 115.2605;
+        $n = jalan::NCij(32.9184);
+        echo('<br>'.$n);
+        $result = jalan::where('longitude','<',$current+0.0001)->orWhere('longitude','>',$current-0.0001)->get();
+        // dd($result);
+        // return view('jalan');
     }
 
     /**
@@ -37,6 +45,23 @@ class JalanController extends Controller
     public function store(StorejalanRequest $request)
     {
         //
+        // dd($request);
+        $validatedData = $request->validate([
+            'longitude' => 'required',
+            'latitude' => 'required',
+            'status' => ' required',
+        ]);
+        $request_long = $validatedData['longitude'];
+        $request_lat = $validatedData['latitude'];
+        $answer = jalan::where('longitude','=',$request_long)->Where('latitude','=',$request_lat)->get();
+        if($answer->isempty()){
+            
+            jalan::create($validatedData);
+        }
+        // echo($longitude.$latitude);
+        // dd($validatedData);
+        // jalan::create($validatedData);
+        // return redirect('/');
     }
 
     /**

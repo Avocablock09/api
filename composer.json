@@ -11,6 +11,7 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.14",
         "laravel/tinker": "^2.7",
+        "larswiegers/laravel-maps": "^0.10.0",
         "malhal/laravel-geographical": "^1.0"
     },
     "require-dev": {

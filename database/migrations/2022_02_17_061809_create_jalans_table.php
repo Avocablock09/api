@@ -18,6 +18,8 @@ return new class extends Migration
             $table->double('longitude');
             $table->double('latitude');
             $table->string('status');
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nullable();
         });
     }
 

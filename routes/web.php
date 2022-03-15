@@ -1,8 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Resources\UserResource;
 use App\Models\User;
+
+use App\Models\jalan;
+use App\Http\Resources\JalanResource;
+use App\Http\Resources\UserResource;
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MapsController;
+use App\Http\Controllers\UserController;
+
+use App\Http\Requests\StorejalanRequest;
+use App\Http\Controllers\JalanController;
+use App\Http\Controllers\PerjalananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,16 +25,23 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
 
-Route::resource('perjalanan', PerjalananController::class);
+Route::resource('/perjalanan', PerjalananController::class);
+Route::resource('/user', UserController::class);
+Route::resource('/jalan', JalanController::class);
 
-Route::get('/user/{id_user}', function ($id) {
-    return new UserResource(User::findOrFail($id));
-});
- 
-Route::get('/users', function () {
-    return UserResource::collection(User::all());
-});
+Route::get('/', function () {return view('home');});
+Route::get('/user/{id_user}', function ($id) {return new UserResource(User::findOrFail($id));});
+Route::get('/users', function () {return UserResource::collection(User::all());});
+Route::get('/jalans', function () {return JalanResource::collection(jalan::all());});
+Route::get('/register',function(){return view('register');});
+Route::get('/blogs',function(){return view('blogs.home_blog');});
+
+Route::get('/test',function(StorejalanRequest $request){
+    dd($request);
+}
+);
+
+Route::post('/map',[MapsController::class,'maps']);
+
+Route::get('/map',[MapsController::class,'index']);
