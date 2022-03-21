@@ -76,7 +76,7 @@
                     lon: e.latlng.lng
                 }, {
                     draggable: true
-                }).bindPopup('' + e.latlng);
+                }).bindPopup('<button onclick=buttonClick()>Hello</button>' + e.latlng);
                 marker.on('dragend', function(event) {
                     var marker = event.target;
                     var position = marker.getLatLng();
@@ -136,7 +136,9 @@
             }
         });
 
-        
+        function buttonClick(){
+            console.log('button clicked');
+        }
         function distances(loc1, loc2) {
             var dist = Math.sqrt(Math.pow((loc1.lng - loc2.lng), 2) + Math.pow((Math.abs(loc1.lat) - Math.abs(
                 loc2.lat)), 2)) / 0.0001 * 11.1;
