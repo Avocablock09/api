@@ -1,10 +1,12 @@
 <?php
 
 use App\Models\User;
-
 use App\Models\jalan;
+use App\Models\pelanggaran;
+
 use App\Http\Resources\JalanResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\ViolationResource;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapsController;
@@ -34,8 +36,10 @@ Route::get('/', function () {return view('home');});
 Route::get('/user/{id_user}', function ($id) {return new UserResource(User::findOrFail($id));});
 Route::get('/users', function () {return UserResource::collection(User::all());});
 Route::get('/jalans', function () {return JalanResource::collection(jalan::all());});
+Route::get('/violation', function () {return ViolationResource::collection(pelanggaran::all());});
 Route::get('/register',function(){return view('register');});
 Route::get('/blogs',function(){return view('blogs.home_blog');});
+
 
 Route::get('/test',function(StorejalanRequest $request){
     dd($request);
