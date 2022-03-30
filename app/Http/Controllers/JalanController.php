@@ -15,13 +15,21 @@ class JalanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getAround($lat,$lon){
+
+    }
+
+    public function index(jalan $jalan)
     {
+        return $jalan;
+        $str_arr = preg_split("/\|/", $jalan);
+        $lat = $str_arr[0];
+        $lon = $str_arr[1];
         //
-        $current = 115.2605;
-        $n = jalan::NCij(32.9184);
-        echo('<br>'.$n);
-        $result = jalan::where('longitude','<',$current+0.0001)->orWhere('longitude','>',$current-0.0001)->get();
+        // $current = 115.2605;
+        // $n = jalan::NCij(32.9184);
+        // echo('<br>'.$n);
+        // $result = jalan::where('longitude','<',$current+0.0001)->orWhere('longitude','>',$current-0.0001)->get();
         // dd($result);
         // return view('jalan');
     }
@@ -73,6 +81,7 @@ class JalanController extends Controller
     public function show(jalan $jalan)
     {
         //
+        
     }
 
     /**

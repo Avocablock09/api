@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('jalans', function (Blueprint $table) {
             $table->id('point_id');
+            $table->string('road_fragment');
             $table->double('longitude');
             $table->double('latitude');
             $table->string('status');

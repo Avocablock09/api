@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormTestController;
 use App\Models\User;
 use App\Models\jalan;
 use App\Models\pelanggaran;
@@ -14,6 +15,7 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Requests\StorejalanRequest;
 use App\Http\Controllers\JalanController;
+use App\Http\Controllers\mainAlgoController;
 use App\Http\Controllers\PerjalananController;
 
 /*
@@ -36,16 +38,21 @@ Route::get('/', function () {return view('home');});
 Route::get('/user/{id_user}', function ($id) {return new UserResource(User::findOrFail($id));});
 Route::get('/users', function () {return UserResource::collection(User::all());});
 Route::get('/jalans', function () {return JalanResource::collection(jalan::all());});
+Route::get('/map',[MapsController::class,'index']);
 Route::get('/violation', function () {return ViolationResource::collection(pelanggaran::all());});
 Route::get('/register',function(){return view('register');});
 Route::get('/blogs',function(){return view('blogs.home_blog');});
-
-
 Route::get('/test',function(StorejalanRequest $request){
     dd($request);
-}
-);
+});
+Route::get('/form',[FormTestController::class,'index']);
 
+
+// POST
 Route::post('/map',[MapsController::class,'maps']);
+Route::post('/mainalgo',[mainAlgoController::class,'index']);
+Route::post('/form',[FormTestController::class,'tampilGet']);
 
-Route::get('/map',[MapsController::class,'index']);
+// PUT
+Route::put('/map',[MapsController::class,'updateMaps']);
+
