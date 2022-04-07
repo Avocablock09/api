@@ -15,7 +15,7 @@ class MapsController extends Controller
             'lat' => -8.68906, 
             'lng' => 115.263493
         ];
-        $list = jalan::observe_prob($current_loc);
+        // $list = jalan::observe_prob($current_loc);
         // return response() ->json([
         //     'data'=> $list
         // ]);
@@ -24,36 +24,35 @@ class MapsController extends Controller
         // $list = jalan::whereRaw('SQRT(POWER((longitude-?),2)+POWER((ABS(latitude)-ABS(?)),2))/0.0001*11.1<30 AND status=1')->setBindings([$input[1],$input[0]])->get();
         $data = jalan::get(['point_id','latitude','longitude','status'])->take(100);
         
-        $list = jalan::whereRaw('SQRT(POWER((longitude-?),2)+POWER((ABS(latitude)-ABS(?)),2))/0.0001*11.1<30 AND status=1')->setBindings([$input[1], $input[0]])->get();
+        // $list = jalan::whereRaw('SQRT(POWER((longitude-?),2)+POWER((ABS(latitude)-ABS(?)),2))/0.0001*11.1<30 AND status=1')->setBindings([$input[1], $input[0]])->get();
         // if(!$list->isEmpty()){
         //     return 'apaya';
         // }
         // else{
         //     return 'anda ada di zona larangan berhenti';
         // }
+        
         return view('maps',[
             'data'=>$data,
-            'list'=>$list
+            // 'list'=>$list
         ]);
     }
 
     public function maps(Request $request){
-        // $current_loc = $request['longitude'];
         $current_loc = [
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude
+            // 'longitude' => $request->longitude,
+            // 'latitude' => $request->latitude
+            'lng' => 115.262815,
+            'lat' => -8.687415
         ];
         $list = jalan::observe_prob($current_loc);
         return response() ->json([
             'data'=> $list
         ]);
-        // if($list!=null){
-        //     return response()->json(['data'=>$list]);
-        // }
     }
 
     public function updateMaps(Request $request){
         jalan::where('point_id',$request->id)->update(['latitude'=>$request->lat,'longitude'=>$request->lng]);
-        redirect('map');
+        return redirect('/map');
     }
 }

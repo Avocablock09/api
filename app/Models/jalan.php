@@ -18,18 +18,20 @@ class jalan extends Model
     public static function observe_prob($current_loc)
     {
         $list = jalan::getBetweenRadius($current_loc);
+
         foreach($list as $key=>$data){
-            // echo $list['latitude'];
             $distance[$key] = sqrt(pow(($data['latitude']-$current_loc['lat']),2)+pow(($data['longitude']-$current_loc['lng']),2))/0.0001*11.1;
         }
+
         $mu = jalan::mu($distance);
         $dev = jalan::deviation($mu,$distance);
         $pos = [0,0];
         foreach($list as $key=>$data){
-            $ncij[$key] = (1/sqrt(2*3.14*$dev))*
+            $ncij[$key] = 
+            (1/sqrt(2*3.14*pow($dev,2)))*
             (pow(exp(1),(
                 -(
-                    ($distance[$key]-$mu)/(2*pow($dev,2))
+                    (pow(($distance[$key]-$mu),2))/(2*pow($dev,2))
                 )
                 )));
             if($ncij[$key]>$pos[1]){
@@ -37,7 +39,8 @@ class jalan extends Model
                 $pos[0] = $key;
             }
         }
-        return $list[$pos[0]];
+        // return $list[$pos[0]];
+
         // return response()->json(['data'=>$list]);
     }
 

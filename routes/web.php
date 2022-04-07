@@ -38,7 +38,7 @@ Route::get('/', function () {return view('home');});
 Route::get('/user/{id_user}', function ($id) {return new UserResource(User::findOrFail($id));});
 Route::get('/users', function () {return UserResource::collection(User::all());});
 Route::get('/jalans', function () {return JalanResource::collection(jalan::all());});
-Route::get('/map',[MapsController::class,'index']);
+Route::get('/map',[MapsController::class,'maps']);
 Route::get('/violation', function () {return ViolationResource::collection(pelanggaran::all());});
 Route::get('/register',function(){return view('register');});
 Route::get('/blogs',function(){return view('blogs.home_blog');});
@@ -46,13 +46,16 @@ Route::get('/test',function(StorejalanRequest $request){
     dd($request);
 });
 Route::get('/form',[FormTestController::class,'index']);
-
+Route::get('/trip',[PerjalananController::class,'index']);
+Route::get('/tripid',[PerjalananController::class,'idjalan']);
 
 // POST
-Route::post('/map',[MapsController::class,'maps']);
+Route::post('/trip',[PerjalananController::class,'store']);
+// Route::post('/map',[MapsController::class,'maps']);
 Route::post('/mainalgo',[mainAlgoController::class,'index']);
 Route::post('/form',[FormTestController::class,'tampilGet']);
 
 // PUT
 Route::put('/map',[MapsController::class,'updateMaps']);
+Route::put('/trip',[PerjalananController::class,'updateTrip']);
 

@@ -16,6 +16,6 @@ class FormTestController extends Controller
     }
 
     public function tampilGet(request $request){
-        return $request->lat;
+        return $request;
     }
 }
